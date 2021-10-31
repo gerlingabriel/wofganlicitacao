@@ -1,13 +1,16 @@
 package com.sistema.wofganlicitacao.model;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.MappedSuperclass;
 
+@MappedSuperclass
 public class Empresa {
 
-    @Column(length = 15, nullable = true, unique = true)
+    @Column(length = 15, nullable = false, unique = true)
     private String cnpj;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, nullable = false )
     private String nomeSocial;
 
     @Column(length = 15, nullable = false)
@@ -16,16 +19,12 @@ public class Empresa {
     @Column(nullable = true)
     private String token;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = true)
     private String email;
 
-    public String getCnpj() {
-        return cnpj;
-    }
+    @Embedded
+    private Endereco enderecos;
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
 
     public String getNomeSocial() {
         return nomeSocial;
@@ -58,6 +57,22 @@ public class Empresa {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public Endereco getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(Endereco enderecos) {
+        this.enderecos = enderecos;
+    }
+
     
 }

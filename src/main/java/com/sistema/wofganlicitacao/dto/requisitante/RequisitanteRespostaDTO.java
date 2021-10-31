@@ -1,4 +1,4 @@
-package com.sistema.wofganlicitacao.dto;
+package com.sistema.wofganlicitacao.dto.requisitante;
 
 public class RequisitanteRespostaDTO {
 
@@ -18,6 +18,7 @@ public class RequisitanteRespostaDTO {
     public void setNomeSocial(String nomeSocial) {
         this.nomeSocial = nomeSocial;
     }
+    
 }
     
 

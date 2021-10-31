@@ -12,4 +12,6 @@ services:
     ports:
       - "15432:5432"
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - wolfgan:/var/lib/postgres
+volumes: 
+  wolfgan:

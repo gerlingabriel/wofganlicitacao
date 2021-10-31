@@ -47,9 +47,14 @@
 		</dependency>
 		<!-- Mapper para conveter Entity p/ dto ou dto p/ Entiny ou até dto p/dto -->
 		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-			<version>1.4.2.Final</version> 
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 
@@ -61,13 +66,6 @@
 				<configuration>
 					<source>11</source> <!-- depending on your project. In this example, Java 11 is used -->
                 	<target>11</target> <!-- depending on your project. In this example, Java 11 is used -->
-					<annotationProcessorPaths>
-						<path>
-							<groupId>org.mapstruct</groupId>
-							<artifactId>mapstruct-processor</artifactId>
-							<version>1.4.2.Final</version>
-						</path>
-					</annotationProcessorPaths>
     			</configuration>
 			</plugin>
 		</plugins>

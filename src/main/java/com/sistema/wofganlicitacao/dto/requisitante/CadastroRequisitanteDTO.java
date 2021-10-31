@@ -1,4 +1,4 @@
-package com.sistema.wofganlicitacao.dto;
+package com.sistema.wofganlicitacao.dto.requisitante;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -17,13 +17,11 @@ public class CadastroRequisitanteDTO {
     @NotBlank(message = "Senha deve conter no máximo 15 caracteres")
     private String senha;
 
-    private String token;
-
     @Email(message = "Email inválido!")
     @NotBlank(message = "Email não deve ser vazio ou em branco")
     private String email;
 
-    private EnderecoDTO enderecoDTO;
+    private EnderecoDTO enderecos;
 
     public String getNomeSocial() {
         return nomeSocial;
@@ -49,14 +47,6 @@ public class CadastroRequisitanteDTO {
         this.senha = senha;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -65,14 +55,12 @@ public class CadastroRequisitanteDTO {
         this.email = email;
     }
 
-    public EnderecoDTO getEnderecoDTO() {
-        return enderecoDTO;
+    public EnderecoDTO getEnderecos() {
+        return enderecos;
     }
 
-    public void setEnderecoDTO(EnderecoDTO enderecoDTO) {
-        this.enderecoDTO = enderecoDTO;
+    public void setEnderecos(EnderecoDTO enderecos) {
+        this.enderecos = enderecos;
     }
-
-    
     
 }

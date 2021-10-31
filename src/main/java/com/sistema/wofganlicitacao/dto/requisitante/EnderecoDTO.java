@@ -1,10 +1,9 @@
-package com.sistema.wofganlicitacao.dto;
+package com.sistema.wofganlicitacao.dto.requisitante;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class EnderecoDTO {
-    
     
     private String cep;
 
