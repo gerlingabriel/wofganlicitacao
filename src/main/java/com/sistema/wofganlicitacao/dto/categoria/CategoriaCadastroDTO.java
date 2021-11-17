@@ -1,8 +1,10 @@
 package com.sistema.wofganlicitacao.dto.categoria;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotEmpty;
 
-public class CategoriaCadastroDTO {
+public class CategoriaCadastroDTO implements Serializable{
 
     @NotEmpty(message = "Campo não pode ser vazio")
     private String nome;

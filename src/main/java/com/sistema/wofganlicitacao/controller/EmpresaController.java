@@ -13,6 +13,7 @@ import com.sistema.wofganlicitacao.service.RequisitanteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,14 +44,15 @@ public class EmpresaController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<RequisitanteRespostaCompletaDTO> buscarCampoCompleto(@PathVariable Long id){
-        return ResponseEntity.ok().body(service.bsucarUmaRequisicao(id));
+        return ResponseEntity.ok().body(service.buscarUmaRequisicao(id));
     }
 
     @PutMapping
     public ResponseEntity<RequisitanteRespostaCompletaDTO> update(@RequestBody RequisitanteRequestCompletaDTO updateDTO){
-        return ResponseEntity.ok().body(service.bsucarUmaRequisicao(updateDTO));
+        return ResponseEntity.ok().body(service.buscarUmaRequisicao(updateDTO));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);

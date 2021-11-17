@@ -15,6 +15,7 @@ import com.sistema.wofganlicitacao.repository.CategoriaRepository;
 import com.sistema.wofganlicitacao.service.CategoriaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,8 +41,8 @@ public class CategoriaserviceImpl implements CategoriaService{
     }
 
     @Override
-    public List<CategoriaRespostaDTO> findALL() {
-       return repository.findAll().stream()
+    public List<CategoriaRespostaDTO> findALL(Pageable pageable) {
+       return repository.findAll(pageable).stream()
                     .map( x -> new CategoriaRespostaDTO(x.getId(), x.getNome()))
                     .collect(Collectors.toList());
     }

@@ -9,13 +9,15 @@ import com.sistema.wofganlicitacao.dto.categoria.CategoriaCadastroDTO;
 import com.sistema.wofganlicitacao.dto.categoria.CategoriaRespostaDTO;
 import com.sistema.wofganlicitacao.dto.produto.ProdutoRespostaDTO;
 
+import org.springframework.data.domain.Pageable;
+
 public interface CategoriaService {
 
     CategoriaRespostaDTO create(CategoriaCadastroDTO categoriaDTO);
 
     CategoriaRespostaDTO update(@Valid CategoriaAtualizarDTO atualizarDTO);
 
-    List<CategoriaRespostaDTO> findALL();
+    List<CategoriaRespostaDTO> findALL(Pageable pageable);
 
     CategoriaRespostaDTO findById(Long id);
 

@@ -3,14 +3,11 @@ package com.sistema.wofganlicitacao.dto.requisitante;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import org.hibernate.validator.constraints.br.CNPJ;
-
 public class CadastroRequisitanteDTO {
 
     @NotBlank(message = "Nome não deve ser vazio ou em branco")
     private String nomeSocial;
 
-    @CNPJ(message = "CNPJ inválido!")
     @NotBlank(message = "Nome não deve ser vazio ou em branco")
     private String cnpj;
 
@@ -20,6 +17,7 @@ public class CadastroRequisitanteDTO {
     @Email(message = "Email inválido!")
     @NotBlank(message = "Email não deve ser vazio ou em branco")
     private String email;
+
 
     private EnderecoDTO enderecos;
 

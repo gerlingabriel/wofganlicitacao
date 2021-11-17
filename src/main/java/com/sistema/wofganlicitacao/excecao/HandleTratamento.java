@@ -21,6 +21,17 @@ public class HandleTratamento {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
 
+    @ExceptionHandler(AutorizacaoNegada.class)
+    public ResponseEntity<MsgErro> excecaoNegada(AutorizacaoNegada ex, HttpServletRequest request){
+
+        MsgErro erro = new MsgErro();
+        erro.setError(HttpStatus.NON_AUTHORITATIVE_INFORMATION.toString());
+        erro.setMsg(ex.getMessage());
+        erro.setStatus(HttpStatus.NOT_FOUND.value());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+    }
+
     /** O certo é fazer me uma class separada
      * InnerHandleTratamento
      */

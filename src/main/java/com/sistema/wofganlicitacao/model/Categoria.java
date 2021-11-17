@@ -1,5 +1,6 @@
 package com.sistema.wofganlicitacao.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import javax.persistence.SequenceGenerator;
 
 
 @Entity
-public class Categoria {
+public class Categoria implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq_categoria")

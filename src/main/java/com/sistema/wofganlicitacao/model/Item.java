@@ -1,5 +1,6 @@
 package com.sistema.wofganlicitacao.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
@@ -10,7 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Item {
+public class Item implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq_item")
@@ -25,6 +26,10 @@ public class Item {
     private BigDecimal precoTotal;
 
     private Short quantidade;
+
+    public BigDecimal getSubPedido(){
+        return precoTotal.multiply(BigDecimal.valueOf(quantidade)).setScale(2);
+    }
 
     public Long getId() {
         return id;

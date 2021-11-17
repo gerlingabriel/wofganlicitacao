@@ -16,6 +16,7 @@ import com.sistema.wofganlicitacao.repository.ProdutoRepository;
 import com.sistema.wofganlicitacao.service.ProdutoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -47,8 +48,8 @@ public class ProdutoServiceImpl implements ProdutoService{
     }
 
     @Override
-    public List<ProdutoRespostaDTO> findALL() {
-       return repository.findAll().stream()
+    public List<ProdutoRespostaDTO> findALL(Pageable pageable) {
+       return repository.findAll(pageable).stream()
                     .map( x -> new ProdutoRespostaDTO(x.getId(), x.getNome()))
                     .collect(Collectors.toList());
     }
@@ -58,6 +59,14 @@ public class ProdutoServiceImpl implements ProdutoService{
         Produto produto = verificarSeExisteCateroria(id);
         return new ProdutoRespostaDTO(produto.getId(), produto.getNome());
     }
+
+    @Override
+    public void delete(Long id) {
+        verificarSeExisteCateroria(id);
+        repository.deleteById(id);        
+    }
+
+
 
     /** Métodos privados
      * 

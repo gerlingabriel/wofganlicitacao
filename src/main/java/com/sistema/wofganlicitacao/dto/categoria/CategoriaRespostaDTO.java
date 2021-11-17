@@ -1,6 +1,8 @@
 package com.sistema.wofganlicitacao.dto.categoria;
 
-public class CategoriaRespostaDTO {
+import java.io.Serializable;
+
+public class CategoriaRespostaDTO implements Serializable{
 
     private Long id;
     private String nome;

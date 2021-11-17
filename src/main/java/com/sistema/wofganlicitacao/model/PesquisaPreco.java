@@ -1,5 +1,8 @@
 package com.sistema.wofganlicitacao.model;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,7 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class PesquisaPreco{
+public class PesquisaPreco  implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq_licitacao")
@@ -36,6 +39,16 @@ public class PesquisaPreco{
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Item> itens;
+
+    private LocalDate dataInicio;
+
+    private LocalDate dataFim;
+
+    public BigDecimal getSomaTotal(){
+        return itens.stream()
+                .map(Item::getSubPedido)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);                
+    }
 
     public Long getId() {
         return id;
@@ -68,6 +81,30 @@ public class PesquisaPreco{
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public List<Item> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<Item> itens) {
+        this.itens = itens;
+    }
+
+    public LocalDate getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(LocalDate dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public LocalDate getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(LocalDate dataFim) {
+        this.dataFim = dataFim;
     }
 
     @Override

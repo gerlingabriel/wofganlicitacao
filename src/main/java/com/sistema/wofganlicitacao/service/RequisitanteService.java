@@ -13,9 +13,9 @@ public interface RequisitanteService {
 
     void cadastrarRequisitante(CadastroRequisitanteDTO cadastroDTO);
 
-    RequisitanteRespostaCompletaDTO bsucarUmaRequisicao(Long id);
+    RequisitanteRespostaCompletaDTO buscarUmaRequisicao(Long id);
 
-    RequisitanteRespostaCompletaDTO bsucarUmaRequisicao(RequisitanteRequestCompletaDTO updateDTO);
+    RequisitanteRespostaCompletaDTO buscarUmaRequisicao(RequisitanteRequestCompletaDTO updateDTO);
 
     void delete(Long id);
     

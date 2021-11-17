@@ -1,9 +1,11 @@
 package com.sistema.wofganlicitacao.dto.categoria;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class CategoriaAtualizarDTO {
+public class CategoriaAtualizarDTO implements Serializable{
 
     @NotNull(message = "Campo id é obrigatório")
     private Long id;
