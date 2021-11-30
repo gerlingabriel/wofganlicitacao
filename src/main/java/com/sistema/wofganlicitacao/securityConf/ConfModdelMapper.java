@@ -1,4 +1,4 @@
-package com.sistema.wofganlicitacao.securityconf;
+package com.sistema.wofganlicitacao.securityConf;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

@@ -66,15 +66,14 @@ public class ProdutoServiceImpl implements ProdutoService{
         repository.deleteById(id);        
     }
 
+    public Produto verificarSeExisteCateroria(Long id) {
+        return repository.findById(id).orElseThrow(() -> new ExcecaoNoExiste("Item não existe"));
+    }
 
 
     /** Métodos privados
      * 
      */
-    private Produto verificarSeExisteCateroria(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ExcecaoNoExiste("Item não existe"));
-    }
-
     private Categoria verificarSeExisteCategoria(Long idCategoria) {
         return categoriaRepository.findById(idCategoria).orElseThrow(() -> new ExcecaoNoExiste("Categoria não existe"));
     }

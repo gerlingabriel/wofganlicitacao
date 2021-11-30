@@ -3,8 +3,8 @@ package com.sistema.wofganlicitacao.dto.pesquisapreco;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.sistema.wofganlicitacao.model.Item;
-import com.sistema.wofganlicitacao.model.Requisitante;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sistema.wofganlicitacao.dto.item.ItensDTO;
 
 public class PesquisaPrecoCadastroDTO {
 
@@ -12,12 +12,12 @@ public class PesquisaPrecoCadastroDTO {
 
     private String descricao;
 
-    private Requisitante requisitante;
+    private List<ItensDTO> itens;
 
-    private List<Item> itens;
-
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataInicio;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataFim;
 
     public String getTitulo() {
@@ -36,19 +36,11 @@ public class PesquisaPrecoCadastroDTO {
         this.descricao = descricao;
     }
 
-    public Requisitante getRequisitante() {
-        return requisitante;
-    }
-
-    public void setRequisitante(Requisitante requisitante) {
-        this.requisitante = requisitante;
-    }
-
-    public List<Item> getItens() {
+    public List<ItensDTO> getItens() {
         return itens;
     }
 
-    public void setItens(List<Item> itens) {
+    public void setItens(List<ItensDTO> itens) {
         this.itens = itens;
     }
 

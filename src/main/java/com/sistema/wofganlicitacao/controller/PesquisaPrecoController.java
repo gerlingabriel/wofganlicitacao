@@ -1,6 +1,7 @@
 package com.sistema.wofganlicitacao.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -19,23 +20,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Controller
-@RequestMapping
+@RequestMapping("/pesquisaPrecos")
 public class PesquisaPrecoController {
 
     @Autowired
     private PesquisaPrecoService service;
 
     @PostMapping
-    public ResponseEntity<PesquisaPrecoCadastroResponseDTO> cadastrarPesquisaPreco(@Valid @RequestBody PesquisaPrecoCadastroDTO cadastrarDTO){
+    public ResponseEntity<Void> cadastrarPesquisaPreco(@Valid @RequestBody PesquisaPrecoCadastroDTO cadastrarDTO){
+
         PesquisaPrecoCadastroResponseDTO prequisaPrecoDTO = service.create(cadastrarDTO);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(prequisaPrecoDTO.getId())
                 .toUri();
-        return ResponseEntity.created(location).body(prequisaPrecoDTO);
+        return ResponseEntity.created(location).build();
     }
 
     @GetMapping
-    public ResponseEntity<PesquisaPrecoPesquisaResponseDTO> buscarTodasPesquisasPrecoDoRequisitante(){
-        return null;
+    public ResponseEntity<List<PesquisaPrecoPesquisaResponseDTO>> buscarTodasPesquisasPrecoDoRequisitante(){
+        return ResponseEntity.ok().body(service.buscarTodasPesquisasPrecoDoRequisitante());
     }
     
 }

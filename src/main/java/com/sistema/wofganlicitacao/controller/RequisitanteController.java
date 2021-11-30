@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/empresas")
-public class EmpresaController {
+public class RequisitanteController {
 
     @Autowired
     private RequisitanteService service;

@@ -35,9 +35,6 @@ public class Empresa {
     @Column(nullable = false)
     private String senha;
 
-    @Column(nullable = true)
-    private String token;
-
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PERFIS", joinColumns = {
         @JoinColumn(name = "id", referencedColumnName= "id")
@@ -87,14 +84,6 @@ public class Empresa {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     public String getEmail() {

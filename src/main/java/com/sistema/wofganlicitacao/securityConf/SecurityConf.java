@@ -1,4 +1,4 @@
-package com.sistema.wofganlicitacao.securityconf;
+package com.sistema.wofganlicitacao.securityConf;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,9 +20,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -82,16 +79,6 @@ public class SecurityConf extends WebSecurityConfigurerAdapter{
         .and()
             .addFilter(new JWTAutenticacaoFilter(authenticationManager(), jwtUtil))
             .addFilter(new JWTAutorizacaoFilter(authenticationManager(), jwtUtil, userDetailsService));
-    }
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource(){
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://localhost:4200/**"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
     }
 
     @Bean

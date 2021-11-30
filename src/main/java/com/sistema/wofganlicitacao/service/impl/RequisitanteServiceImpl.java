@@ -26,10 +26,8 @@ public class RequisitanteServiceImpl implements RequisitanteService{
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-
     @Autowired
     private RequisitanteRepository repository;
-
     @Autowired
     private ModelMapper modelMapper = new ModelMapper();
 
@@ -81,18 +79,17 @@ public class RequisitanteServiceImpl implements RequisitanteService{
         repository.deleteById(id);        
     }
 
-    /**
-     * Métodos Primvados
-     */
     public Requisitante verificarSeExisteEmpresaRequisitante(Long id) {
         return repository.findById(id).orElseThrow(() -> new ExcecaoNoExiste("Empresa não existe!"));
     }
 
-    private void verificarSeCNPJJafoiAdicionado(String cnpj) {
+    public void verificarSeCNPJJafoiAdicionado(String cnpj) {
         Optional<Requisitante> buscaSeCNPJJaFoiAdicionado = repository.findByCnpj(cnpj);
         if(buscaSeCNPJJaFoiAdicionado.isPresent()){
            throw new ExcecaoNoExiste("Cnpj já cadastrado!");
         }
     }
+
+    
     
 }

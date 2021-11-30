@@ -46,7 +46,7 @@ public class PesquisaPreco  implements Serializable{
 
     public BigDecimal getSomaTotal(){
         return itens.stream()
-                .map(Item::getSubPedido)
+                .map(Item::getPrecoTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);                
     }
 
