@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.sistema.wofganlicitacao.dto.item.ItensDTO;
 import com.sistema.wofganlicitacao.dto.pesquisapreco.PesquisaPrecoCadastroDTO;
 import com.sistema.wofganlicitacao.dto.pesquisapreco.PesquisaPrecoCadastroResponseDTO;
@@ -21,6 +23,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Transactional
 @Service
 public class PesquisaPrecoServiceImpl implements PesquisaPrecoService{
 
@@ -63,8 +66,7 @@ public class PesquisaPrecoServiceImpl implements PesquisaPrecoService{
 
         List<PesquisaPreco> listaPesquisaPrecsoDoRequisitante = repository.findByRequisitante(buscarUsuarioLogado());
 
-        List<PesquisaPrecoPesquisaResponseDTO> listaPesquisaPrecoDTO = new ArrayList<>();
-        
+        List<PesquisaPrecoPesquisaResponseDTO> listaPesquisaPrecoDTO = new ArrayList<>();        
         listaPesquisaPrecsoDoRequisitante.forEach(dado ->  listaPesquisaPrecoDTO.add(modelMapper.map(dado, PesquisaPrecoPesquisaResponseDTO.class) ) );
 
         listaPesquisaPrecoDTO.forEach(dado -> dado.setValorTotal(buscarValorTotalDaLista(dado.getId())));
@@ -72,9 +74,17 @@ public class PesquisaPrecoServiceImpl implements PesquisaPrecoService{
         return listaPesquisaPrecoDTO;
     }
 
-    public PesquisaPreco verificarSeExistePesquisaPreco(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ExcecaoNoExiste("Empresa não existe!"));
+    @Override
+    public PesquisaPrecoPesquisaResponseDTO buscarPesquisaPrecoPorId(Long id) {
+
+        PesquisaPreco pesquisaPreco = verificarSeExistePesquisaPreco(id);
+
+        PesquisaPrecoPesquisaResponseDTO pesquisaPrecoDTO = modelMapper.map(pesquisaPreco, PesquisaPrecoPesquisaResponseDTO.class);
+        pesquisaPrecoDTO.setValorTotal(buscarValorTotalDaLista(pesquisaPreco.getId()) );
+
+        return pesquisaPrecoDTO;
     }
+
 
     /**
      * Metodos Privados
@@ -92,6 +102,9 @@ public class PesquisaPrecoServiceImpl implements PesquisaPrecoService{
         return verificarSeExistePesquisaPreco.getSomaTotal();
     }
 
+    private PesquisaPreco verificarSeExistePesquisaPreco(Long id) {
+        return repository.findById(id).orElseThrow(() -> new ExcecaoNoExiste("Empresa não existe!"));
+    }
 
 
     

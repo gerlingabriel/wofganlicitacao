@@ -11,5 +11,7 @@ public interface PesquisaPrecoService {
     PesquisaPrecoCadastroResponseDTO create(PesquisaPrecoCadastroDTO cadastrarDTO);
 
     List<PesquisaPrecoPesquisaResponseDTO> buscarTodasPesquisasPrecoDoRequisitante();
+
+    PesquisaPrecoPesquisaResponseDTO buscarPesquisaPrecoPorId(Long id);
     
 }

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,11 @@ public class PesquisaPrecoController {
     @GetMapping
     public ResponseEntity<List<PesquisaPrecoPesquisaResponseDTO>> buscarTodasPesquisasPrecoDoRequisitante(){
         return ResponseEntity.ok().body(service.buscarTodasPesquisasPrecoDoRequisitante());
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<PesquisaPrecoPesquisaResponseDTO> buscarPesquisaPrecoPorId(@PathVariable Long id){
+        return ResponseEntity.ok().body(service.buscarPesquisaPrecoPorId(id));
     }
     
 }

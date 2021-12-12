@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Produto implements Serializable {
 
@@ -24,7 +26,8 @@ public class Produto implements Serializable {
     @Column(length = 254)
     private String descricao;
 
-    @ManyToOne
+    @ManyToOne 
+    @JsonIgnoreProperties
     private Categoria categoria;
 
     public Long getId() {

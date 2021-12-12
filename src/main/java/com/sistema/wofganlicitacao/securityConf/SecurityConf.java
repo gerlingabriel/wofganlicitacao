@@ -65,7 +65,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter{
             http.headers().frameOptions().disable();            
         }
 
-        http.cors()                                   //configuração para habilitar cors, mas na classe terá uma congiração "configurationSource"
+        http.cors()                                   //configuração para habilitar cors, mas na classe terá uma configuração "configurationSource"
         .and().csrf().disable()                        //como não termeos sessão pode desabilitar csrf
         .authorizeRequests()                       
             .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()  
@@ -85,5 +85,6 @@ public class SecurityConf extends WebSecurityConfigurerAdapter{
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
     
 }

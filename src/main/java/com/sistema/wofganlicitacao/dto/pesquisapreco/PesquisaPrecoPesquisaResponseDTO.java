@@ -1,6 +1,7 @@
 package com.sistema.wofganlicitacao.dto.pesquisapreco;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class PesquisaPrecoPesquisaResponseDTO {
 
@@ -8,6 +9,9 @@ public class PesquisaPrecoPesquisaResponseDTO {
     private String titulo;
     private String descricaoPesquisaPreco;
     private BigDecimal valorTotal;
+
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
 
     public Long getId() {
         return id;
@@ -32,6 +36,18 @@ public class PesquisaPrecoPesquisaResponseDTO {
     }
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
+    }
+    public LocalDate getDataInicio() {
+        return dataInicio;
+    }
+    public void setDataInicio(LocalDate dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+    public LocalDate getDataFim() {
+        return dataFim;
+    }
+    public void setDataFim(LocalDate dataFim) {
+        this.dataFim = dataFim;
     }
     
 }
