@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import com.sistema.wofganlicitacao.dto.pesquisapreco.PesquisaPrecoCadastroDTO;
 import com.sistema.wofganlicitacao.dto.pesquisapreco.PesquisaPrecoCadastroResponseDTO;
+import com.sistema.wofganlicitacao.dto.pesquisapreco.PesquisaPrecoItensResponseDTO;
 import com.sistema.wofganlicitacao.dto.pesquisapreco.PesquisaPrecoPesquisaResponseDTO;
 import com.sistema.wofganlicitacao.service.PesquisaPrecoService;
 
@@ -42,8 +43,14 @@ public class PesquisaPrecoController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PesquisaPrecoPesquisaResponseDTO> buscarPesquisaPrecoPorId(@PathVariable Long id){
+    public ResponseEntity<List<PesquisaPrecoItensResponseDTO>> buscarPesquisaPrecoPorId(@PathVariable Long id){
         return ResponseEntity.ok().body(service.buscarPesquisaPrecoPorId(id));
     }
+
+    @GetMapping(value = "pesquisaPorTitulo/{nome}")
+    public ResponseEntity<List<PesquisaPrecoCadastroResponseDTO>> buscarPesquisaPrecoPorId(@PathVariable String nome){
+        return ResponseEntity.ok().body(service.buscarPesquisaPrecoPorNome(nome));
+    }
+
     
 }

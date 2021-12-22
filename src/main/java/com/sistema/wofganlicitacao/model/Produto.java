@@ -23,12 +23,16 @@ public class Produto implements Serializable {
     @Column(length = 150)
     private String nome;
 
-    @Column(length = 254)
-    private String descricao;
-
     @ManyToOne 
     @JsonIgnoreProperties
     private Categoria categoria;
+
+    public Produto() {
+    }
+
+    public Produto(String nome) {
+        this.nome = nome;
+    }
 
     public Long getId() {
         return id;
@@ -44,14 +48,6 @@ public class Produto implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
     public Categoria getCategoria() {

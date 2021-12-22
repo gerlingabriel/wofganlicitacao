@@ -8,9 +8,9 @@ public class ItensDTO {
 
     private ProdutoRequestDTO produto;
 
-    private BigDecimal precoUnitario;
+    private String descricaoProduto;
 
-    private BigDecimal precoTotal;
+    private BigDecimal precoUnitario;
 
     private Short quantidade;
 
@@ -30,14 +30,6 @@ public class ItensDTO {
         this.precoUnitario = precoUnitario;
     }
 
-    public BigDecimal getPrecoTotal() {
-        return precoTotal;
-    }
-
-    public void setPrecoTotal(BigDecimal precoTotal) {
-        this.precoTotal = precoTotal;
-    }
-
     public Short getQuantidade() {
         return quantidade;
     }
@@ -46,6 +38,11 @@ public class ItensDTO {
         this.quantidade = quantidade;
     }
 
-    
-    
+    public String getDescricaoProduto() {
+        return descricaoProduto;
+    }
+
+    public void setDescricaoProduto(String descricaoProduto) {
+        this.descricaoProduto = descricaoProduto;
+    }    
 }

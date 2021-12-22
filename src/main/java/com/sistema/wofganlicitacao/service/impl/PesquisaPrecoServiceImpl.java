@@ -1,16 +1,18 @@
 package com.sistema.wofganlicitacao.service.impl;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import com.sistema.wofganlicitacao.dto.item.ItensDTO;
 import com.sistema.wofganlicitacao.dto.pesquisapreco.PesquisaPrecoCadastroDTO;
 import com.sistema.wofganlicitacao.dto.pesquisapreco.PesquisaPrecoCadastroResponseDTO;
+import com.sistema.wofganlicitacao.dto.pesquisapreco.PesquisaPrecoItensResponseDTO;
 import com.sistema.wofganlicitacao.dto.pesquisapreco.PesquisaPrecoPesquisaResponseDTO;
 import com.sistema.wofganlicitacao.excecao.ExcecaoNoExiste;
+import com.sistema.wofganlicitacao.model.ItemPesquisaPreco;
 import com.sistema.wofganlicitacao.model.PesquisaPreco;
 import com.sistema.wofganlicitacao.model.Produto;
 import com.sistema.wofganlicitacao.model.Requisitante;
@@ -50,7 +52,7 @@ public class PesquisaPrecoServiceImpl implements PesquisaPrecoService{
 
             Produto produto = produtoServiceImpl.verificarSeExisteCateroria(itensDTO.getProduto().getId());
             pesquisaPreco.getItens().get(cont).setProdutos(produto);
-            pesquisaPreco.getItens().get(cont).setPrecoTotal(itensDTO.getPrecoUnitario().multiply(BigDecimal.valueOf(itensDTO.getQuantidade())));
+            pesquisaPreco.getItens().get(cont).setQuantidade(itensDTO.getQuantidade());
             cont++;
         }
 
@@ -66,25 +68,34 @@ public class PesquisaPrecoServiceImpl implements PesquisaPrecoService{
 
         List<PesquisaPreco> listaPesquisaPrecsoDoRequisitante = repository.findByRequisitante(buscarUsuarioLogado());
 
-        List<PesquisaPrecoPesquisaResponseDTO> listaPesquisaPrecoDTO = new ArrayList<>();        
-        listaPesquisaPrecsoDoRequisitante.forEach(dado ->  listaPesquisaPrecoDTO.add(modelMapper.map(dado, PesquisaPrecoPesquisaResponseDTO.class) ) );
+        List<PesquisaPrecoPesquisaResponseDTO> listaPesquisaPrecoDTO = new ArrayList<>(); 
 
-        listaPesquisaPrecoDTO.forEach(dado -> dado.setValorTotal(buscarValorTotalDaLista(dado.getId())));
+        listaPesquisaPrecsoDoRequisitante.forEach(dado ->  listaPesquisaPrecoDTO.add(modelMapper.map(dado, PesquisaPrecoPesquisaResponseDTO.class) ) );
 
         return listaPesquisaPrecoDTO;
     }
 
     @Override
-    public PesquisaPrecoPesquisaResponseDTO buscarPesquisaPrecoPorId(Long id) {
+    public List<PesquisaPrecoItensResponseDTO> buscarPesquisaPrecoPorId(Long id) {
 
         PesquisaPreco pesquisaPreco = verificarSeExistePesquisaPreco(id);
 
-        PesquisaPrecoPesquisaResponseDTO pesquisaPrecoDTO = modelMapper.map(pesquisaPreco, PesquisaPrecoPesquisaResponseDTO.class);
-        pesquisaPrecoDTO.setValorTotal(buscarValorTotalDaLista(pesquisaPreco.getId()) );
+        List<ItemPesquisaPreco> itemPesquisaPreco = pesquisaPreco.getItens();
 
-        return pesquisaPrecoDTO;
+        return itemPesquisaPreco.stream()
+            .map(dado -> modelMapper.map(dado, PesquisaPrecoItensResponseDTO.class) ).collect(Collectors.toList());
     }
 
+    @Override
+    public List<PesquisaPrecoCadastroResponseDTO> buscarPesquisaPrecoPorNome(String nome) {
+
+        Requisitante requisitante = buscarUsuarioLogado();
+
+        List<PesquisaPreco> listaPesquisaPreco = repository.findByTituloContainingIgnoreCaseAndRequisitante(nome, requisitante);
+
+        return listaPesquisaPreco.stream()
+            .map(dado -> modelMapper.map(dado, PesquisaPrecoCadastroResponseDTO.class)).collect(Collectors.toList());
+    }
 
     /**
      * Metodos Privados
@@ -95,11 +106,6 @@ public class PesquisaPrecoServiceImpl implements PesquisaPrecoService{
 
         return requisitanteServiceImpl.verificarSeExisteEmpresaRequisitante(buscarUsuarioLogado.getId());
 
-    }
-
-    private BigDecimal buscarValorTotalDaLista(Long id) {
-        PesquisaPreco verificarSeExistePesquisaPreco = verificarSeExistePesquisaPreco(id);
-        return verificarSeExistePesquisaPreco.getSomaTotal();
     }
 
     private PesquisaPreco verificarSeExistePesquisaPreco(Long id) {

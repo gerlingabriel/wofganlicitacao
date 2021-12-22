@@ -12,5 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface PesquisaPrecoRepository extends JpaRepository<PesquisaPreco, Long> {
 
     List<PesquisaPreco> findByRequisitante(Requisitante buscarUsuarioLogado);
+
+    List<PesquisaPreco> findByTituloContainingIgnoreCaseAndRequisitante(String nome, Requisitante requisitante);
     
 }

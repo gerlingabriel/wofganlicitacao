@@ -1,13 +1,13 @@
 package com.sistema.wofganlicitacao.dto.pesquisapreco;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class PesquisaPrecoCadastroResponseDTO {
 
     private Long id;
     private String titulo;
-    private String descricaoPesquisaPreco;
-    private BigDecimal valorTotal;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
 
     public Long getId() {
         return id;
@@ -21,17 +21,18 @@ public class PesquisaPrecoCadastroResponseDTO {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    public String getDescricaoPesquisaPreco() {
-        return descricaoPesquisaPreco;
+    public LocalDate getDataInicio() {
+        return dataInicio;
     }
-    public void setDescricaoPesquisaPreco(String descricaoPesquisaPreco) {
-        this.descricaoPesquisaPreco = descricaoPesquisaPreco;
+    public void setDataInicio(LocalDate dataInicio) {
+        this.dataInicio = dataInicio;
     }
-    public BigDecimal getValorTotal() {
-        return valorTotal;
+    public LocalDate getDataFim() {
+        return dataFim;
     }
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
+    public void setDataFim(LocalDate dataFim) {
+        this.dataFim = dataFim;
     }
+
     
 }

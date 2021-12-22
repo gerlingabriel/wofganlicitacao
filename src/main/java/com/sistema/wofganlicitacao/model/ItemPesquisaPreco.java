@@ -7,11 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Item implements Serializable{
+public class ItemPesquisaPreco implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq_item")
@@ -21,14 +22,21 @@ public class Item implements Serializable{
     @OneToOne
     private Produto produtos;
 
-    private BigDecimal precoUnitario;
+    @Lob
+    private String descricaoProduto;
 
-    private BigDecimal precoTotal;
+    private BigDecimal precoUnitario;
 
     private Short quantidade;
 
-    public BigDecimal getSubPedido(){
-        return precoTotal.multiply(BigDecimal.valueOf(quantidade)).setScale(2);
+    public ItemPesquisaPreco() {
+    }
+
+    public ItemPesquisaPreco(Produto produtos, String descricaoProduto, BigDecimal precoUnitario, Short quantidade) {
+        this.produtos = produtos;
+        this.descricaoProduto = descricaoProduto;
+        this.precoUnitario = precoUnitario;
+        this.quantidade = quantidade;
     }
 
     public Long getId() {
@@ -55,14 +63,6 @@ public class Item implements Serializable{
         this.precoUnitario = precoUnitario;
     }
 
-    public BigDecimal getPrecoTotal() {
-        return precoTotal;
-    }
-
-    public void setPrecoTotal(BigDecimal precoTotal) {
-        this.precoTotal = precoTotal;
-    }
-
     public Short getQuantidade() {
         return quantidade;
     }
@@ -71,6 +71,11 @@ public class Item implements Serializable{
         this.quantidade = quantidade;
     }
 
-    
-    
+    public String getDescricaoProduto() {
+        return descricaoProduto;
+    }
+
+    public void setDescricaoProduto(String descricaoProduto) {
+        this.descricaoProduto = descricaoProduto;
+    }
 }

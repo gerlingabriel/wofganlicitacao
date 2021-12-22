@@ -1,7 +1,6 @@
 package com.sistema.wofganlicitacao.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -28,27 +26,18 @@ public class PesquisaPreco  implements Serializable{
 
     @Column
     private String titulo;
-    
-    @Lob
-    @Column(length=512)
-    private String descricao;
 
     @ManyToOne
     @JoinColumn(name = "requisitante_id")
     private Requisitante requisitante;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Item> itens;
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ItemPesquisaPreco> itens;
+
 
     private LocalDate dataInicio;
 
     private LocalDate dataFim;
-
-    public BigDecimal getSomaTotal(){
-        return itens.stream()
-                .map(Item::getPrecoTotal)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);                
-    }
 
     public Long getId() {
         return id;
@@ -57,15 +46,6 @@ public class PesquisaPreco  implements Serializable{
     public void setId(Long id) {
         this.id = id;
     }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
 
     public Requisitante getRequisitante() {
         return requisitante;
@@ -83,11 +63,11 @@ public class PesquisaPreco  implements Serializable{
         this.titulo = titulo;
     }
 
-    public List<Item> getItens() {
+    public List<ItemPesquisaPreco> getItens() {
         return itens;
     }
 
-    public void setItens(List<Item> itens) {
+    public void setItens(List<ItemPesquisaPreco> itens) {
         this.itens = itens;
     }
 
