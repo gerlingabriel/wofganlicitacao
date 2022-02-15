@@ -78,4 +78,5 @@ public class ItemPesquisaPreco implements Serializable{
     public void setDescricaoProduto(String descricaoProduto) {
         this.descricaoProduto = descricaoProduto;
     }
+
 }

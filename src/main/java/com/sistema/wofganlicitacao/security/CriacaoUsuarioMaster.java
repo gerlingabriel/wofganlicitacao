@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.sistema.wofganlicitacao.model.Categoria;
 import com.sistema.wofganlicitacao.model.ItemPesquisaPreco;
 import com.sistema.wofganlicitacao.model.PesquisaPreco;
@@ -21,6 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
+@Transactional
 public class CriacaoUsuarioMaster implements CommandLineRunner{
 
     @Autowired
@@ -47,7 +50,7 @@ public class CriacaoUsuarioMaster implements CommandLineRunner{
 
             requisitanteRepository.save(requisitante);
 
-            Categoria categoriaInformatica = new Categoria("Informaáfica");
+            Categoria categoriaInformatica = new Categoria("Informáfica");
             categoriaRepository.save(categoriaInformatica);
 
             Produto produtoNotebook = new Produto("Notebook");
@@ -58,26 +61,33 @@ public class CriacaoUsuarioMaster implements CommandLineRunner{
             pesquisaPreco.setRequisitante(requisitante);    
             
             pesquisaPreco.setTitulo("Orçamento dos materiais de escritório do FINDES");
-            ItemPesquisaPreco itemPesquisaPreco = new ItemPesquisaPreco(produtoNotebook, "Notebook 8gb, 512 SSD e I5", BigDecimal.valueOf(4800.50), (short)3);
-            ItemPesquisaPreco itemPesquisaPreco2 = new ItemPesquisaPreco(produtoNotebook, "Notebook 16gb, 1T SSD e I7", BigDecimal.valueOf(4800.50), (short)3);
-            pesquisaPreco.setItens(List.of(itemPesquisaPreco, itemPesquisaPreco2));
 
             pesquisaPreco.setDataInicio(LocalDate.of(2021, 12, 01));
             pesquisaPreco.setDataFim(LocalDate.of(2022, 02, 05));
 
+            pesquisaPreco = pesquisaPrecoRepository.save(pesquisaPreco);
+            
+            ItemPesquisaPreco itemPesquisaPreco = new ItemPesquisaPreco(produtoNotebook, "Notebook 8gb, 512 SSD e I5", BigDecimal.valueOf(4800.50), (short)3);
+            ItemPesquisaPreco itemPesquisaPreco2 = new ItemPesquisaPreco(produtoNotebook, "Notebook 16gb, 1T SSD e I7", BigDecimal.valueOf(4800.50), (short)3);
+            
+            pesquisaPreco.setItens(List.of(itemPesquisaPreco, itemPesquisaPreco2));
+
+
             /** Outra pesquisa preco */
-            PesquisaPreco pesquisaPreco2 = new PesquisaPreco() ;
+            PesquisaPreco pesquisaPreco2 = new PesquisaPreco();
             pesquisaPreco2.setRequisitante(requisitante);    
             
             pesquisaPreco2.setTitulo("Orçamento dos materiais paraPrefeitura de Vitória");
-            ItemPesquisaPreco itemPesquisaPreco1 = new ItemPesquisaPreco(produtoNotebook, "Notebook 8gb, 512 SSD e I5", BigDecimal.valueOf(4800.50), (short)3);
-            ItemPesquisaPreco itemPesquisaPreco11 = new ItemPesquisaPreco(produtoNotebook, "Notebook 16gb, 1T SSD e I7", BigDecimal.valueOf(4800.50), (short)3);
-            pesquisaPreco2.setItens(List.of(itemPesquisaPreco1, itemPesquisaPreco11));
+
+            pesquisaPreco2 = pesquisaPrecoRepository.save(pesquisaPreco2);
 
             pesquisaPreco2.setDataInicio(LocalDate.of(2021, 12, 01));
             pesquisaPreco2.setDataFim(LocalDate.of(2022, 02, 05));
 
-            pesquisaPrecoRepository.saveAll(List.of(pesquisaPreco, pesquisaPreco2));
+            ItemPesquisaPreco itemPesquisaPreco1 = new ItemPesquisaPreco(produtoNotebook, "Notebook 4gb, 1T SSD e I5", BigDecimal.valueOf(2800.50), (short)10);
+            ItemPesquisaPreco itemPesquisaPreco11 = new ItemPesquisaPreco(produtoNotebook, "Notebook 4gb, 1T SSD e I7", BigDecimal.valueOf(2500.50), (short)15);
+
+            pesquisaPreco2.setItens(List.of(itemPesquisaPreco1, itemPesquisaPreco11));
         }
     }    
 }

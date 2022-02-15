@@ -57,6 +57,11 @@ public class ProdutoController {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
+    @GetMapping(value = "/pesquisaNome/{nome}")
+    public ResponseEntity<List<ProdutoRespostaDTO>> findById(@PathVariable String nome, Pageable pageable) {
+        return ResponseEntity.ok().body(service.findByName(nome, pageable));
+    }
+
     @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){

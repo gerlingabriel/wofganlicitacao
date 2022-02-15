@@ -56,7 +56,7 @@ public class CategoriaserviceImpl implements CategoriaService{
     @Override
     public List<ProdutoRespostaDTO> findByType(Long id) {
         Categoria categoria = verificarSeExisteCateroria(id);
-        return categoria.getProdutos().stream().map(x -> new ProdutoRespostaDTO(x.getId(), x.getNome())).collect(Collectors.toList());
+        return categoria.getProdutos().stream().map(x -> new ProdutoRespostaDTO(x.getId(), x.getNome(), x.getCategoria().toString())).collect(Collectors.toList());
     }
 
     @Override

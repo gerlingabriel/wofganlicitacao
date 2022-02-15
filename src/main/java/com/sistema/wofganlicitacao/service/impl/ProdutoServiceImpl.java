@@ -36,7 +36,7 @@ public class ProdutoServiceImpl implements ProdutoService{
         produto.setCategoria(categoriaDoProduto);
         
         repository.save(produto);
-        return new ProdutoRespostaDTO(produto.getId(), produto.getNome());
+        return new ProdutoRespostaDTO(produto.getId(), produto.getNome(), produto.getCategoria().getNome());
     }
 
     @Override
@@ -44,20 +44,20 @@ public class ProdutoServiceImpl implements ProdutoService{
         Produto produto  = verificarSeExisteCateroria(atualizarDTO.getId());
         produto.setNome(atualizarDTO.getNome());
         repository.save(produto);
-        return new ProdutoRespostaDTO(produto.getId(), produto.getNome());
+        return new ProdutoRespostaDTO(produto.getId(), produto.getNome(), produto.getCategoria().getNome());
     }
 
     @Override
     public List<ProdutoRespostaDTO> findALL(Pageable pageable) {
        return repository.findAll(pageable).stream()
-                    .map( x -> new ProdutoRespostaDTO(x.getId(), x.getNome()))
+                    .map( x -> new ProdutoRespostaDTO(x.getId(), x.getNome(),x.getCategoria().getNome()))
                     .collect(Collectors.toList());
     }
 
     @Override
     public ProdutoRespostaDTO findById(Long id) {
         Produto produto = verificarSeExisteCateroria(id);
-        return new ProdutoRespostaDTO(produto.getId(), produto.getNome());
+        return new ProdutoRespostaDTO(produto.getId(), produto.getNome(), produto.getCategoria().getNome());
     }
 
     @Override
@@ -68,6 +68,15 @@ public class ProdutoServiceImpl implements ProdutoService{
 
     public Produto verificarSeExisteCateroria(Long id) {
         return repository.findById(id).orElseThrow(() -> new ExcecaoNoExiste("Item não existe"));
+    }
+
+    @Override
+    public List<ProdutoRespostaDTO> findByName(String nome, Pageable pageable) {
+        List<Produto> listaDeProdutosPesquisado = repository.findByNomeIgnoreCaseContaining(nome, pageable);
+
+        return listaDeProdutosPesquisado.stream()
+                .map(x -> new ProdutoRespostaDTO(x.getId(), x.getNome(), x.getCategoria().getNome()))
+                .collect(Collectors.toList());
     }
 
 

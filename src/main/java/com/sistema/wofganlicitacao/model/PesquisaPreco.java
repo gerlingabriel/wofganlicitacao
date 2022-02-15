@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class PesquisaPreco  implements Serializable{
+public class PesquisaPreco implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq_licitacao")
@@ -31,9 +31,9 @@ public class PesquisaPreco  implements Serializable{
     @JoinColumn(name = "requisitante_id")
     private Requisitante requisitante;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "item_pesquisa_preco_id", nullable = false)
     private List<ItemPesquisaPreco> itens;
-
 
     private LocalDate dataInicio;
 

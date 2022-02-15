@@ -21,5 +21,7 @@ public interface ProdutoService {
     ProdutoRespostaDTO findById(Long id);
 
     void delete(Long id);
+
+    List<ProdutoRespostaDTO> findByName(String nome, Pageable pageable);
     
 }
